@@ -6,8 +6,8 @@ public class FollowPlayer : MonoBehaviour {
 
     public int moveSpeed = 3;
     public int rotationSpeed = 3;
-    public int range = 10;
-    public int range2 = 10;
+    public int range = 50;
+    public int range2 = 50;
 
 
     private Transform myTransform;

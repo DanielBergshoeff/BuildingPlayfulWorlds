@@ -13,6 +13,7 @@ public class Shooting : MonoBehaviour {
 
 
     private Camera fpsCam;
+    
 
     private void OnGUI()
     {

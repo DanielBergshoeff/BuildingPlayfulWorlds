@@ -30,6 +30,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Camera m_Camera;
         private bool m_Jump;
+        private float m_JumpMultiplier = 1;
+        private bool m_Bounce;
         private float m_YRotation;
         private Vector2 m_Input;
         private Vector3 m_MoveDir = Vector3.zero;
@@ -74,6 +76,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
+                
             }
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
@@ -115,11 +118,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
-                    m_MoveDir.y = m_JumpSpeed;
+                    m_MoveDir.y = m_JumpSpeed * m_JumpMultiplier;
                     PlayJumpSound();
                     m_Jump = false;
                     m_Jumping = true;
                 }
+                if (m_JumpMultiplier != 1)
+                {
+                    m_JumpMultiplier = 1;
+                }
+
             }
             else
             {
@@ -254,6 +262,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+
+            if (hit.gameObject.tag == "Bounce")
+            {
+                Debug.Log(GetComponent<CharacterController>().velocity.ToString());
+                m_JumpMultiplier = (float)((GetComponent<CharacterController>().velocity.y / 8) * -1);
+                Debug.Log(m_JumpMultiplier.ToString());
+                m_Jump = true;
+            }
         }
     }
 }

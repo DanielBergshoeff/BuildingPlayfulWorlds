@@ -28,7 +28,8 @@ public class FollowPlayer : MonoBehaviour {
         var distance = Vector3.Distance(myTransform.position, target.position);
         if (distance < range)
         {
-            myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(target.position - myTransform.position), rotationSpeed * Time.deltaTime);
+            Vector3 vectorTarget = new Vector3(target.position.x, myTransform.position.y, target.position.z);
+            myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(vectorTarget - myTransform.position), rotationSpeed * Time.deltaTime);
             myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
         }
     }

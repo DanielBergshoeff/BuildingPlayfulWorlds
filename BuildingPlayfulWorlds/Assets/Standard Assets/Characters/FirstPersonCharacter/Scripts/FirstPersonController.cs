@@ -44,6 +44,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        private Vector3[] spawnGrounds;
+        private int currentLevel = 1;
+
         // Use this for initialization
         private void Start()
         {
@@ -57,6 +60,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            currentLevel = 0;
+            spawnGrounds = new Vector3[] {
+                new Vector3(3, 11, 36),
+                new Vector3(94, 3, -36),
+                new Vector3(194, 16, -35),
+            };
+
+            Respawn();
         }
 
 
@@ -97,6 +109,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            if(GetComponent<Transform>().position.y < -50)
+            {
+                Respawn();
+            }
+
+            if(m_WalkSpeed > 5)
+            {
+                m_WalkSpeed -= (float)0.03;                
+            }
+            else
+            {
+                m_WalkSpeed = 5;
+            }
+            if(m_RunSpeed > 10)
+            {
+                m_RunSpeed -= (float)0.03;
+            }
+            else
+            {
+                m_RunSpeed = 10;
+            }
+
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
@@ -250,6 +284,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            Debug.Log(hit.gameObject.tag);
+            if (hit.gameObject.tag == "Bounce")
+            {
+                m_JumpMultiplier = (float)((GetComponent<CharacterController>().velocity.y / 8) * -1);
+                m_Jump = true;
+            }
+            if (hit.gameObject.tag == "SmallEnemy")
+            {
+                m_RunSpeed += (float)1;
+                m_WalkSpeed += (float)1;
+                Destroy(hit.gameObject);
+            }
+            if (hit.gameObject.tag == "NextLevel")
+            {
+                if (currentLevel != spawnGrounds.Length - 1)
+                {
+
+                    currentLevel++;
+                    Respawn();
+                }
+            }
             Rigidbody body = hit.collider.attachedRigidbody;
             //dont move the rigidbody if the character is on top of it
             if (m_CollisionFlags == CollisionFlags.Below)
@@ -263,13 +318,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
 
-            if (hit.gameObject.tag == "Bounce")
-            {
-                Debug.Log(GetComponent<CharacterController>().velocity.ToString());
-                m_JumpMultiplier = (float)((GetComponent<CharacterController>().velocity.y / 8) * -1);
-                Debug.Log(m_JumpMultiplier.ToString());
-                m_Jump = true;
-            }
+            
+        }
+
+        private void Respawn()
+        {
+            Debug.Log("Respawn");
+            Debug.Log(currentLevel);
+            Debug.Log(spawnGrounds[currentLevel].ToString());
+
+            transform.position = spawnGrounds[currentLevel];
         }
     }
 }

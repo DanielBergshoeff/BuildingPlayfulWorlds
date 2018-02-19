@@ -46,6 +46,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Vector3[] spawnGrounds;
         private int currentLevel = 1;
+        private bool nextLevel = false;
 
         // Use this for initialization
         private void Start()
@@ -109,6 +110,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            if(nextLevel)
+            {
+                Respawn();
+                nextLevel = false;
+            }
+
             if(GetComponent<Transform>().position.y < -50)
             {
                 Respawn();
@@ -302,7 +309,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
 
                     currentLevel++;
-                    Respawn();
+                    nextLevel = true;
                 }
             }
             Rigidbody body = hit.collider.attachedRigidbody;
@@ -328,6 +335,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Debug.Log(spawnGrounds[currentLevel].ToString());
 
             transform.position = spawnGrounds[currentLevel];
+
+            Debug.Log(transform.name);
+            Debug.Log(transform.position);
         }
     }
 }

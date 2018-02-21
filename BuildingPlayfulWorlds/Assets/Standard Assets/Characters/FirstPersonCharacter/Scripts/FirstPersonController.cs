@@ -44,6 +44,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        public int startLevel = 0;
+
         private Vector3[] spawnGrounds;
         private int currentLevel = 1;
         private bool nextLevel = false;
@@ -62,9 +64,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
-            currentLevel = 0;
+            currentLevel = startLevel;
             spawnGrounds = new Vector3[] {
-                new Vector3(3, 11, 36),
+                new Vector3(4, 6, -36),
                 new Vector3(94, 3, -36),
                 new Vector3(194, 16, -35),
             };

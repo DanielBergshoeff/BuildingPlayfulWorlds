@@ -66,9 +66,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             currentLevel = startLevel;
             spawnGrounds = new Vector3[] {
+                /* SCENE 1
                 new Vector3(4, 6, -36),
                 new Vector3(94, 3, -36),
                 new Vector3(194, 16, -35),
+                new Vector3(419, 18, 30),
+                new Vector3(545, 2, 30)
+                */
+
+                // SCENE 2
+                new Vector3(3, 1, -5)
             };
 
             Respawn();
@@ -293,7 +300,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            Debug.Log(hit.gameObject.tag);
             if (hit.gameObject.tag == "Bounce")
             {
                 m_JumpMultiplier = (float)((GetComponent<CharacterController>().velocity.y / 8) * -1);
@@ -332,14 +338,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Respawn()
         {
-            Debug.Log("Respawn");
-            Debug.Log(currentLevel);
-            Debug.Log(spawnGrounds[currentLevel].ToString());
-
             transform.position = spawnGrounds[currentLevel];
-
-            Debug.Log(transform.name);
-            Debug.Log(transform.position);
         }
     }
 }

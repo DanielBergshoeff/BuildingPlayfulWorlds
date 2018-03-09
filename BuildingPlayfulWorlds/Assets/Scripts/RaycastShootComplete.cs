@@ -17,6 +17,9 @@ public class RaycastShootComplete : MonoBehaviour
     private float nextFire;                                             // Float to store the time the player will be allowed to fire again, after firing
     public GameObject prefab;
 
+    public Color[] colors;
+    public GameObject colorGun;
+
 
     void Start()
     {
@@ -60,10 +63,32 @@ public class RaycastShootComplete : MonoBehaviour
                 // If there was a health script attached
                 if (hit.collider.gameObject.tag == "Enemy")
                 {
-                    Vector3 tempPosition = hit.collider.transform.position;
+                    if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor"))
+                    {
+
+                        for (int i = 0; i < colors.Length; i++)
+                        {
+                            if (hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (colors[i]))
+                            {
+                                if (i + 1 != colors.Length)
+                                {
+                                    hit.collider.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", colors[i + 1]);
+                                }
+                                else
+                                {
+                                    hit.collider.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", colors[0]);
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+
+
+                    /* Vector3 tempPosition = hit.collider.transform.position;
                     Quaternion tempRotation = hit.collider.transform.rotation;
                     Destroy(hit.collider.gameObject);
-                    Instantiate(prefab, tempPosition, tempRotation);
+                    Instantiate(prefab, tempPosition, tempRotation); */
                 }
                 else if (hit.collider.gameObject.tag == "SmallEnemy")
                 {
@@ -81,6 +106,29 @@ public class RaycastShootComplete : MonoBehaviour
             {
                 // If we did not hit anything, set the end of the line to a position directly in front of the camera at the distance of weaponRange
                 laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+            }
+        }
+
+        if(Input.GetButtonDown("Fire2")) {
+            for (int i = 0; i < colors.Length; i++)
+            {
+                Debug.Log(colors[i]);
+                if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (colors[i]))
+                {
+                    Debug.Log("Change material");
+                    if (i + 1 != colors.Length)
+                    {
+                        colorGun.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", colors[i + 1]);
+                        GetComponent<LineRenderer>().material.SetColor("_EmissionColor", colors[i + 1]);
+                    }
+                    else
+                    {
+                        colorGun.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", colors[0]);
+                        GetComponent<LineRenderer>().material.SetColor("_EmissionColor", colors[0]);
+                    }
+
+                    break;
+                }
             }
         }
     }

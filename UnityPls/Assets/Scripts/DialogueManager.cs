@@ -25,9 +25,8 @@ public class DialogueManager : MonoBehaviour {
 
         sentences.Clear();
 
-        foreach(string sentence in dialogue.answers)
-        {
-            sentences.Enqueue(sentence);
+        foreach (string s in dialogue.answers[choice].Split(',')) {
+            sentences.Enqueue(s);
         }
 
         DisplayNextSentence();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -19,12 +20,15 @@ public class PlayerController : MonoBehaviour {
     private GameObject interactableMenu;
     private GameObject[] allInteractables;
 
-	// Use this for initialization
-	void Start () {
+    private GameObject panel;
+
+    // Use this for initialization
+    void Start() {
         text.enabled = false;
         interactableText.enabled = false;
-        LoadInteractables();        
-	}
+        LoadInteractables();
+        panel = GameObject.Find("startDialoguePanel");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -93,7 +97,21 @@ public class PlayerController : MonoBehaviour {
                             closestInteractable.transform.GetChild(i).gameObject.SetActive(true);
                         }
                         interactableMenu = closestInteractable;
-                        interactableText.text = "Er zit geen water meer in. Lucky zal wel dorst hebben!";
+
+
+                        if(interactableMenu.name == "i_waterbak")
+                        {
+                            interactableText.text = "Er zit geen water meer in. Lucky zal wel dorst hebben!";
+                        }
+                        else if(interactableMenu.name == "i_voerbak")
+                        {
+                            interactableText.text = "De voerbak zit vol.";
+                        }
+                        else if (interactableMenu.name == "i_hondenmand")
+                        {
+                            interactableText.text = "Lucky ligt niet in de hondenmand.";
+                        }
+
                         interactableText.alignment = TextAnchor.LowerCenter;
                         interactableText.enabled = true;
                     }
@@ -140,12 +158,25 @@ public class PlayerController : MonoBehaviour {
         return tempClosestInteractable;
     }
 
-    void StartDialogue(int choice)
+    public void StartDialogue(int choice)
     {
+        dialogueMenu.SetActive(false);
         foreach (Dialogue dia in dialogues) {
             if(closestInteractable == dia.character)
             {
-                FindObjectOfType<DialogueManager>().StartDialogue(dia);
+                FindObjectOfType<DialogueManager>().StartDialogue(dia, choice);
+            }
+        }
+    }
+
+    public void MakeChoice(int choice)
+    {
+        if(choice == 3)
+        {
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCount > nextSceneIndex)
+            {
+                SceneManager.LoadScene(nextSceneIndex);
             }
         }
     }

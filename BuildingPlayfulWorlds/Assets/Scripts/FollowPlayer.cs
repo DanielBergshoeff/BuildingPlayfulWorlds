@@ -9,6 +9,10 @@ public class FollowPlayer : MonoBehaviour {
     public int range = 50;
     public int range2 = 50;
 
+    public int rangeWall = 10;
+    public Material transparantMat;
+    public Material blueMat;
+
 
     private Transform myTransform;
     private Transform target;

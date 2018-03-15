@@ -8,6 +8,7 @@ TagManager:
   - SmallEnemy
   - Bounce
   - NextLevel
+  - SpecialWall
   layers:
   - Default
   - TransparentFX

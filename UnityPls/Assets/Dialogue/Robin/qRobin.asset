@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestionDialogueContainer
   characterName: playerName
   questionButtons:
-  - text: Heb je al iets gevonden?
+  - questionAsked: 1
+    text: Heb je al iets gevonden?
     nextDialogueContainer: {fileID: 11400000, guid: 85ce34182eb18cd45b67b12ee0471ba8,
       type: 2}

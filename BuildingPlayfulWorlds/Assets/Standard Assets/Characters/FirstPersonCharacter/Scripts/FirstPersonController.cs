@@ -49,6 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3[] spawnGrounds;
         private int currentLevel = 1;
         private bool nextLevel = false;
+        public Color emissionColorPurple;
 
         // Use this for initialization
         private void Start()
@@ -300,7 +301,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (hit.gameObject.tag == "Bounce")
+            if (hit.gameObject.tag == "Bounce" && hit.gameObject.GetComponentInParent<Renderer>().materials[0].GetColor("_EmissionColor") == emissionColorPurple)
             {
                 m_JumpMultiplier = (float)((GetComponent<CharacterController>().velocity.y / 8) * -1);
                 m_Jump = true;

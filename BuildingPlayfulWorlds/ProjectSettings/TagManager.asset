@@ -9,6 +9,7 @@ TagManager:
   - Bounce
   - NextLevel
   - SpecialWall
+  - BounceTag
   layers:
   - Default
   - TransparentFX

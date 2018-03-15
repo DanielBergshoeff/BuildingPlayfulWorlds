@@ -13,18 +13,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestionDialogueContainer
   characterName: playerName
   questionButtons:
-  - questionAsked: 1
+  - questionAsked: 0
     text: Hoe gaat het?
     nextDialogueContainer: {fileID: 11400000, guid: 27562dab170550d4a87454221b453b0d,
       type: 2}
-  - questionAsked: 1
+  - questionAsked: 0
     text: Heb je Lucky gezien?
     nextDialogueContainer: {fileID: 11400000, guid: 3d73cf4d3dbda9c459f1aba5d06b3c7d,
       type: 2}
-  - questionAsked: 1
+  - questionAsked: 0
     text: Wat heb je vandaag gedaan?
     nextDialogueContainer: {fileID: 11400000, guid: 31ccec140fdb01e478422e7d74c84f40,
       type: 2}
-  - questionAsked: 1
+  - questionAsked: 0
     text: Tot ziens!
     nextDialogueContainer: {fileID: 0}

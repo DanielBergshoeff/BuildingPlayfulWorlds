@@ -90,6 +90,29 @@ public class RaycastShootComplete : MonoBehaviour
                     Destroy(hit.collider.gameObject);
                     Instantiate(prefab, tempPosition, tempRotation); */
                 }
+                else if(hit.collider.gameObject.tag == "Bounce")
+                {
+                    if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == hit.collider.GetComponentInParent<Renderer>().materials[0].GetColor("_EmissionColor"))
+                    {
+
+                        for (int i = 0; i < colors.Length; i++)
+                        {
+                            if (hit.collider.GetComponentInParent<Renderer>().materials[0].GetColor("_EmissionColor") == (colors[i]))
+                            {
+                                if (i + 1 != colors.Length)
+                                {
+                                    hit.collider.GetComponentInParent<Renderer>().materials[0].SetColor("_EmissionColor", colors[i + 1]);
+                                }
+                                else
+                                {
+                                    hit.collider.GetComponentInParent<Renderer>().materials[0].SetColor("_EmissionColor", colors[0]);
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
                 else if (hit.collider.gameObject.tag == "SmallEnemy")
                 {
                     Destroy(hit.collider.gameObject);

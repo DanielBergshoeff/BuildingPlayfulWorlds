@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
     public Dialogue[] dialogues;
     public GameObject dialogueMenu;
 
+    public DialogueManager dialogueManager;
+
     private GameObject closestInteractable;
     private GameObject interactableMenu;
     private GameObject[] allInteractables;
@@ -28,6 +30,14 @@ public class PlayerController : MonoBehaviour {
         interactableText.enabled = false;
         LoadInteractables();
         panel = GameObject.Find("startDialoguePanel");
+
+        foreach(Dialogue dialogue in dialogues)
+        {
+            if (dialogue.dialogueContainer != null)
+            {
+                dialogue.dialogueContainer.Setup(null);
+            }
+        }
     }
 	
 	// Update is called once per frame
@@ -117,7 +127,14 @@ public class PlayerController : MonoBehaviour {
                     }
                     else if (closestInteractable.name.Substring(0, 2) == "c_")
                     {
-                        dialogueMenu.SetActive(true);
+                        foreach (Dialogue dia in dialogues)
+                        {
+                            if (closestInteractable == dia.character)
+                            {
+                                dialogueManager.StartDialogue(dia.dialogueContainer);
+                            }
+                        }
+                        
                     }
                 }
                 
@@ -158,16 +175,6 @@ public class PlayerController : MonoBehaviour {
         return tempClosestInteractable;
     }
 
-    public void StartDialogue(int choice)
-    {
-        dialogueMenu.SetActive(false);
-        foreach (Dialogue dia in dialogues) {
-            if(closestInteractable == dia.character)
-            {
-                FindObjectOfType<DialogueManager>().StartDialogue(dia, choice);
-            }
-        }
-    }
 
     public void MakeChoice(int choice)
     {

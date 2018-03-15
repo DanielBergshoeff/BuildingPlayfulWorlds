@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: aHoeGaatHet
+  m_EditorClassIdentifier: Assembly-CSharp::TextDialogueContainer
+  characterName: moeder
+  sentences:
+  - Vandaag was een wat stressvolle dag
+  - omdat je broertje zich niet helemaal lekker voelde
+  - en ik hem naar school moest brengen met de auto.
+  nextDialogueContainer: {fileID: 11400000, guid: 9156309a2d62a434196a7805c126dba5,
+    type: 2}

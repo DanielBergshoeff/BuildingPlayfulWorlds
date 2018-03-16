@@ -17,7 +17,7 @@ public class RaycastShootComplete : MonoBehaviour
     private float nextFire;                                             // Float to store the time the player will be allowed to fire again, after firing
     public GameObject prefab;
 
-    public Color[] colors;
+    private Color[] colors;
     public GameObject colorGun;
 
 
@@ -31,6 +31,17 @@ public class RaycastShootComplete : MonoBehaviour
 
         // Get and store a reference to our Camera by searching this GameObject and its parents
         fpsCam = GetComponentInParent<Camera>();
+
+        string[] enumNames = System.Enum.GetNames(typeof(ColorManager.ColorNames));
+        colors = new Color[enumNames.Length];
+        int i = 0;
+        foreach(ColorManager.ColorNames name in System.Enum.GetValues(typeof(ColorManager.ColorNames)))
+        {
+            colors[i] = ColorManager.GetColorValue(name);
+            i++;            
+        }
+
+        
     }
 
 
@@ -54,8 +65,10 @@ public class RaycastShootComplete : MonoBehaviour
             // Set the start position for our visual effect for our laser to the position of gunEnd
             laserLine.SetPosition(0, gunEnd.position);
 
+            int layer_mask = LayerMask.GetMask("BounceLaser");
+
             // Check if our raycast has hit anything
-            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
+            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange, layer_mask))
             {
                 // Set the end position for our laser line 
                 laserLine.SetPosition(1, hit.point);
@@ -63,6 +76,8 @@ public class RaycastShootComplete : MonoBehaviour
                 // If there was a health script attached
                 if (hit.collider.gameObject.tag == "Enemy")
                 {
+                    /*Debug.Log(colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor"));
+                    Debug.Log(hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor"));*/
                     if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor"))
                     {
 
@@ -135,10 +150,10 @@ public class RaycastShootComplete : MonoBehaviour
         if(Input.GetButtonDown("Fire2")) {
             for (int i = 0; i < colors.Length; i++)
             {
-                Debug.Log(colors[i]);
+                /*Debug.Log(colors[i]);*/
                 if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (colors[i]))
                 {
-                    Debug.Log("Change material");
+                    /*Debug.Log("Change material");*/
                     if (i + 1 != colors.Length)
                     {
                         colorGun.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", colors[i + 1]);

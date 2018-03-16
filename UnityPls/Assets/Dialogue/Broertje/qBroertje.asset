@@ -8,14 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: f931a703c5ad6054f9bcf00c18e650c9, type: 3}
   m_Name: qBroertje
   m_EditorClassIdentifier: Assembly-CSharp::QuestionDialogueContainer
   characterName: playerName
   questionButtons:
   - questionAsked: 0
     text: Hoe gaat het?
-    nextDialogueContainer: {fileID: 11400000, guid: b2cc0c2f34a379849997273487c288bc,
+    nextDialogueContainer: {fileID: 11400000, guid: 36b0affc79aa95d438f03f9adae13b03,
       type: 2}
   - questionAsked: 0
     text: Heb je Lucky gezien?

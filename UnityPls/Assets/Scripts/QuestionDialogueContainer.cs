@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Question creation menu")]
 public class QuestionDialogueContainer : DialogueContainer
 {
     public DialogueButton[] questionButtons;

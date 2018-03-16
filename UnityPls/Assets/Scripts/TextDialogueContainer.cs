@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Text creation menu")]
 public class TextDialogueContainer : DialogueContainer
 {
     public string[] sentences;

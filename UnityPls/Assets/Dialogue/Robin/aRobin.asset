@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 0b7d7890ff159f744862d94168360290, type: 3}
   m_Name: aRobin
   m_EditorClassIdentifier: Assembly-CSharp::TextDialogueContainer
-  characterName: robin
+  characterName: Robin
   sentences:
   - Jazeker, Lucky zit vast en zeker in de berging!
   - Als ik het nu niet druk had met iets anders zou ik hem gaan halen

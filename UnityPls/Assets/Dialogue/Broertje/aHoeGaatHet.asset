@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 0b7d7890ff159f744862d94168360290, type: 3}
   m_Name: aHoeGaatHet
   m_EditorClassIdentifier: Assembly-CSharp::TextDialogueContainer
-  characterName: broertje
+  characterName: Kevin
   sentences:
   - Goed! Ik voelde me in de ochtend niet zo lekker
   - maar mama heeft me naar school gebracht en nu voel ik me weer goed!

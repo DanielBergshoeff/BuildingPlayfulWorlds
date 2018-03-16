@@ -3,12 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DialogueNodeType
-{
-    QUESTION, TEXT
-}
-
-
+[System.Serializable]
 public abstract class DialogueContainer : ScriptableObject {
     public string characterName;
     public abstract DialogueNodeType dialogueNodeType { get; }

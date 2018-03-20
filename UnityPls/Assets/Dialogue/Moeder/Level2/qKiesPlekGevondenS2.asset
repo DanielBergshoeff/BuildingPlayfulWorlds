@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f0c818b27ff3444b7378c598aa299f, type: 3}
+  m_Name: qKiesPlekGevondenS2
+  m_EditorClassIdentifier: 
+  characterName: playerName
+  questionButtons:
+  - questionAsked: 0
+    text: In je eigen zak!
+    nextDialogueContainer: {fileID: 11400000, guid: 5670f3c3a69fcbb409a71507974fa511,
+      type: 2}
+  - questionAsked: 0
+    text: Ik heb je mobieltje!
+    nextDialogueContainer: {fileID: 11400000, guid: 1c8e0a8fc545e514bbc94ba57245b543,
+      type: 2}
+  - questionAsked: 0
+    text: Papa heeft je mobieltje!
+    nextDialogueContainer: {fileID: 11400000, guid: f6f241e991f6c484eb597958ccbcf325,
+      type: 2}
+  - questionAsked: 0
+    text: Robin heeft je mobieltje!
+    nextDialogueContainer: {fileID: 11400000, guid: cc4a1689ca7991c48ba286c38105f88b,
+      type: 2}
+  - questionAsked: 0
+    text: Kevin heeft je mobieltje!
+    nextDialogueContainer: {fileID: 11400000, guid: 485960e0df472e5409b5a4c67f3337a7,
+      type: 2}

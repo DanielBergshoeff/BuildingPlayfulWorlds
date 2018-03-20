@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f931a703c5ad6054f9bcf00c18e650c9, type: 3}
+  m_Name: qMoeder
+  m_EditorClassIdentifier: 
+  characterName: playerName
+  questionButtons:
+  - questionAsked: 0
+    text: Hoe gaat het?
+    nextDialogueContainer: {fileID: 11400000, guid: 8ad86c83e13c7194e928fa35b694cf70,
+      type: 2}
+  - questionAsked: 0
+    text: Wanneer heb je je mobieltje voor het laatst gezien?
+    nextDialogueContainer: {fileID: 11400000, guid: cf28d6ad4e874e446bc10a1cdd5048ed,
+      type: 2}
+  - questionAsked: 0
+    text: Wat heb je vandaag gedaan?
+    nextDialogueContainer: {fileID: 11400000, guid: 07ee08bed72d9834ba2a3e0b5fa59c01,
+      type: 2}
+  - questionAsked: 0
+    text: Ik weet waar je mobiel is!
+    nextDialogueContainer: {fileID: 11400000, guid: d2fc8f315aa3370419a002c841334890,
+      type: 2}
+  - questionAsked: 0
+    text: Tot ziens!
+    nextDialogueContainer: {fileID: 0}

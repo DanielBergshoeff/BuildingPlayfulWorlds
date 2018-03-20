@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d7890ff159f744862d94168360290, type: 3}
+  m_Name: aNieuwLevel
+  m_EditorClassIdentifier: 
+  characterName: Mama
+  sentences:
+  - 'Wat vervelend weer. '
+  - . Ik kan mijn mobiel nergens vinden en voor de rest heeft niemand het gezien.
+  - Ik ben nu al een tijdje bezig geweest met zoeken
+  - maar zonder succes.
+  - Ik vraag me daarom af of jij en Robin mij willen helpen
+  - Ik kan alle hulp nu wel gebruiken.
+  nextDialogueContainer: {fileID: 11400000, guid: a26dc3e70706c9d4386bb8c1c07f7e03,
+    type: 2}

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum DialogueNodeType
 {
-    QUESTION, TEXT
+    QUESTION, TEXT, SPECIAL
 }

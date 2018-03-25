@@ -35,11 +35,13 @@ public class DialogueManager : MonoBehaviour {
 	void Start () {
         sentences = new Queue<string>();
         finalScreen.SetActive(false);
-        livesLeft = 5;
+        livesLeft = 6;
 	}
 
     public void StartDialogue(DialogueContainer dialogueContainer)
     {
+        player.GetComponent<PlayerController>().blockMovement = true;
+
         currentDialogueContainer = dialogueContainer;        
 
         switch(dialogueContainer.dialogueNodeType)
@@ -56,7 +58,6 @@ public class DialogueManager : MonoBehaviour {
             default:
                 throw new System.NotImplementedException();
         }
-
         
     }
 
@@ -182,6 +183,7 @@ public class DialogueManager : MonoBehaviour {
 
     void EndDialogue()
     {
+        player.GetComponent<PlayerController>().blockMovement = false;
         TextDialogueContainer textDialogueContainer = (TextDialogueContainer)currentDialogueContainer;
 
         panelKevin.SetActive(false);
@@ -200,7 +202,7 @@ public class DialogueManager : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("IsOpen", false);
+            animator.SetBool("IsOpen", false);            
         }        
         Debug.Log("End of conversation.");
         
@@ -221,11 +223,10 @@ public class DialogueManager : MonoBehaviour {
             else
             {
                 livesLeft--;
-                if (livesLeft == 3)
+                if (livesLeft == 4)
                 {
                     StartDialogue(wrongChoiceLevel1_final);
                     player.GetComponent<PlayerController>().NextLevel();
-                    livesLeft = 1;
                     //ADD YOU FAILED DIALOGUE
                 }
                 else
@@ -248,8 +249,7 @@ public class DialogueManager : MonoBehaviour {
             }
             else
             {
-                livesLeft--;
-                StartDialogue(wrongChoiceLevel1);            
+                livesLeft--;        
                 Debug.Log("Bad choice!");
             }
         }
@@ -257,7 +257,9 @@ public class DialogueManager : MonoBehaviour {
 
     public void PickedQuestion(int questionChoice)
     {
-        foreach(Button b in buttons)
+        player.GetComponent<PlayerController>().blockMovement = false;
+
+        foreach (Button b in buttons)
         {
             b.gameObject.SetActive(false);
         }
@@ -280,9 +282,7 @@ public class DialogueManager : MonoBehaviour {
             {
                 StartDialogue(specDialogueContainer.questionButtons[questionChoice].nextDialogueContainer);
             }
-        }
-
-        
+        }       
 
         
     }

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     public Dialogue[] currentDialogues;
     public Dialogue[] dialogues1;
     public Dialogue[] dialogues2;
+    public Dialogue[] dialogues3;
 
     public Dialogue startDialogue;
 
@@ -36,6 +37,12 @@ public class PlayerController : MonoBehaviour {
     public Sprite background1;
     public Sprite background2;
 
+    public Sprite spriteSmoelenboek2;
+    public Sprite spriteKwetter2;
+
+    public Sprite spriteSmoelenboek3;
+    public Sprite spriteKwetter3;
+
     public GameObject closeUpPanel;
     public Sprite spriteVoerEnWaterBak;
     public Sprite spriteHondenMand;
@@ -52,6 +59,11 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject dogSprite;
 
+    public AudioClip clipVictory;
+
+    public GameObject finalScreen;
+    public Text finalScore;
+
     private Animator animCanvas;
 
     private GameObject closestInteractable;
@@ -66,8 +78,11 @@ public class PlayerController : MonoBehaviour {
 
     private bool phoneOpened;
 
+    private AudioClip music;
+
     // Use this for initialization
     void Start() {
+        music = GameObject.Find("Audio").GetComponent<AudioSource>().clip;
         bg = GameObject.Find("Background");
         NextLevel();
         text.enabled = false;
@@ -84,6 +99,8 @@ public class PlayerController : MonoBehaviour {
         phoneHint.SetActive(false);
         animCanvas = animHolder.GetComponent<Animator>();
         dogSprite.SetActive(false);
+        finalScreen.SetActive(false);
+        pressButtonHint.SetActive(true);
 
         foreach(Dialogue dialogue in currentDialogues)
         {
@@ -194,6 +211,7 @@ public class PlayerController : MonoBehaviour {
                                 if (closestInteractable == dia.character)
                                 {
                                     dialogueManager.StartDialogue(dia.dialogueContainer);
+                                    closestInteractable.GetComponent<AudioSource>().Play();
                                 }
                             }
 
@@ -255,22 +273,31 @@ public class PlayerController : MonoBehaviour {
     {
         StartCoroutine(ShowCongratulations(currentLevel));
 
+        StartCoroutine(NewLevelSound());
+
         currentLevel++;       
 
         if(currentLevel == 1)
         {
-            /*bg.GetComponent<SpriteRenderer>().sprite = background1; */
             currentDialogues = dialogues1;
             allInteractables = interactablesLevel1;
         }
         else if(currentLevel == 2)
         {
-            /*bg.GetComponent<SpriteRenderer>().sprite = background2; */
             StartCoroutine(ShowPhoneHint());
             dogSprite.SetActive(true);
             btnPhone.SetActive(true);
             currentDialogues = dialogues2;
             allInteractables = interactablesLevel2;
+            panelSmoelenboek.GetComponentInChildren<Image>().sprite = spriteSmoelenboek2;
+            panelKwetter.GetComponentInChildren<Image>().sprite = spriteKwetter2;
+        }
+        else if (currentLevel == 3)
+        {
+            currentDialogues = dialogues3;
+            allInteractables = interactablesLevel2;
+            panelSmoelenboek.GetComponentInChildren<Image>().sprite = spriteSmoelenboek3;
+            panelKwetter.GetComponentInChildren<Image>().sprite = spriteKwetter3;
         }
 
         foreach (Dialogue dialogue in currentDialogues)
@@ -284,6 +311,7 @@ public class PlayerController : MonoBehaviour {
 
     public void OpenPhone()
     {
+        Debug.Log("Open phone");
         phoneOpened = !phoneOpened;
         if(phoneOpened)
         {            
@@ -327,14 +355,30 @@ public class PlayerController : MonoBehaviour {
     {
         congratulationsHintText.text = level.ToString();
         congratulationsHint.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         congratulationsHint.SetActive(false);
     }
 
     IEnumerator ShowPhoneHint()
     {
         phoneHint.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(15);
         phoneHint.SetActive(false);
+    }
+
+    IEnumerator NewLevelSound()
+    {
+        AudioSource a = GameObject.Find("Audio").GetComponent<AudioSource>();
+        a.clip = clipVictory;
+        a.Play();
+        yield return new WaitForSeconds(a.clip.length);
+        a.clip = music;
+        a.Play();
+    }
+
+    public void FinalScreen(int score)
+    {
+        finalScore.text = score.ToString();
+        finalScreen.SetActive(true);
     }
 }

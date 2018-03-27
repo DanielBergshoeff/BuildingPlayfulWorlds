@@ -14,4 +14,5 @@ MonoBehaviour:
   characterName: Mama
   sentences:
   - Geeft niet, jongen, fijn dat ik hem terug heb!
-  nextDialogueContainer: {fileID: 0}
+  nextDialogueContainer: {fileID: 11400000, guid: 5ed118673ad6f324ca54906e9d47c368,
+    type: 2}

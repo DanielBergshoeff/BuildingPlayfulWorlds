@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d7890ff159f744862d94168360290, type: 3}
+  m_Name: aBeginPokemonKaart
+  m_EditorClassIdentifier: 
+  characterName: Mama
+  sentences:
+  - Kevin, we komen die kaart vanzelf wel weer eens een keer tegen.
+  - We kunnen anders ook wel een nieuwe voor je kopen.
+  nextDialogueContainer: {fileID: 11400000, guid: e6dfff9fba6ac6b42b943e22746fc357,
+    type: 2}

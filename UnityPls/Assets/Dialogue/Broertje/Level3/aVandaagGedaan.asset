@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7d7890ff159f744862d94168360290, type: 3}
+  m_Name: aVandaagGedaan
+  m_EditorClassIdentifier: 
+  characterName: Kevin
+  sentences:
+  - Ik heb vandaag samen met mama naar de pokemon kaart gezocht
+  - in mijn kamer en in de woonkamer.
+  nextDialogueContainer: {fileID: 11400000, guid: 9f5ef1de6d901ed489ef148126ba95db,
+    type: 2}

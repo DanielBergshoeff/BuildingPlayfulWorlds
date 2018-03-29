@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour {
     public GameObject finalScreen;
     public Text textNrOfLines;
 
+    public Text nrOfPoints;
+
     private DialogueContainer currentDialogueContainer;
 
     private Queue<string> sentences;
@@ -35,11 +37,13 @@ public class DialogueManager : MonoBehaviour {
 	void Start () {
         sentences = new Queue<string>();
         finalScreen.SetActive(false);
-        livesLeft = 5;
+        livesLeft = 6;
 	}
 
     public void StartDialogue(DialogueContainer dialogueContainer)
     {
+        player.GetComponent<PlayerController>().blockMovement = true;
+
         currentDialogueContainer = dialogueContainer;        
 
         switch(dialogueContainer.dialogueNodeType)
@@ -56,7 +60,6 @@ public class DialogueManager : MonoBehaviour {
             default:
                 throw new System.NotImplementedException();
         }
-
         
     }
 
@@ -182,6 +185,7 @@ public class DialogueManager : MonoBehaviour {
 
     void EndDialogue()
     {
+        player.GetComponent<PlayerController>().blockMovement = false;
         TextDialogueContainer textDialogueContainer = (TextDialogueContainer)currentDialogueContainer;
 
         panelKevin.SetActive(false);
@@ -200,10 +204,8 @@ public class DialogueManager : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("IsOpen", false);
-        }        
-        Debug.Log("End of conversation.");
-        
+            animator.SetBool("IsOpen", false);            
+        }                
     }
 
     void SpecialQuestionAnswer(int nrChosen)
@@ -214,50 +216,57 @@ public class DialogueManager : MonoBehaviour {
             if (nrChosen == 1)
             {
                 StartDialogue(rightChoiceLevel1);
+                ChangePoints(2);
                 player.GetComponent<PlayerController>().NextLevel();
-                //ADD YOU WON DIALOGUE
-                Debug.Log("Good choice!");
             }
             else
             {
-                livesLeft--;
-                if (livesLeft == 3)
+                ChangePoints(-1);
+                if (livesLeft == 4)
                 {
                     StartDialogue(wrongChoiceLevel1_final);
                     player.GetComponent<PlayerController>().NextLevel();
-                    livesLeft = 1;
-                    //ADD YOU FAILED DIALOGUE
                 }
                 else
                 {
                     StartDialogue(wrongChoiceLevel1);
                 }
-
-                Debug.Log("Bad choice!");
             }
         } else if(player.GetComponent<PlayerController>().currentLevel == 2)
         {
             if (nrChosen == 4)
             {
                 player.GetComponent<PlayerController>().NextLevel();
-                livesLeft++;
-                //ADD YOU WON DIALOGUE
-                Debug.Log("Good choice!");
-                textNrOfLines.text = livesLeft.ToString();
-                finalScreen.SetActive(true);
+                ChangePoints(2);         
             }
             else
             {
-                livesLeft--;
-                StartDialogue(wrongChoiceLevel1);            
-                Debug.Log("Bad choice!");
+                ChangePoints(-1);
             }
+        }
+        else if(player.GetComponent<PlayerController>().currentLevel == 3)
+        {
+            if(nrChosen == 4)
+            {
+                player.GetComponent<PlayerController>().NextLevel();
+                ChangePoints(2);
+            }
+            else
+            {
+                ChangePoints(-1);
+            }            
+        }
+        else if (player.GetComponent<PlayerController>().currentLevel == 4)
+        {
+            player.GetComponent<PlayerController>().FinalScreen(int.Parse(nrOfPoints.text));
         }
     }
 
     public void PickedQuestion(int questionChoice)
     {
-        foreach(Button b in buttons)
+        player.GetComponent<PlayerController>().blockMovement = false;
+
+        foreach (Button b in buttons)
         {
             b.gameObject.SetActive(false);
         }
@@ -280,10 +289,33 @@ public class DialogueManager : MonoBehaviour {
             {
                 StartDialogue(specDialogueContainer.questionButtons[questionChoice].nextDialogueContainer);
             }
+        }       
+
+        
+    } 
+
+    public void ChangePoints(int amt)
+    {
+        livesLeft += amt;
+        if(livesLeft <= 3)
+        {
+            nrOfPoints.text = "1";
         }
-
-        
-
-        
+        else if (livesLeft > 3 && livesLeft < 6)
+        {
+            nrOfPoints.text = "2";
+        }
+        else if (livesLeft > 5 && livesLeft <= 7)
+        {
+            nrOfPoints.text = "3";
+        }
+        else if (livesLeft > 7 && livesLeft < 10)
+        {
+            nrOfPoints.text = "4";
+        }
+        else if (livesLeft > 9 && livesLeft < 12)
+        {
+            nrOfPoints.text = "5";
+        }
     }
 }

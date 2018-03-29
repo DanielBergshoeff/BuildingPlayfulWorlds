@@ -58,7 +58,7 @@ public class BouncingLaser : MonoBehaviour
             int layer_mask = LayerMask.GetMask("BounceLaser");
             //Debug.Log("Physics.Raycast(" + lastLaserPosition + ", " + laserDirection + ", out hit , " + laserDistance + ")");
             if (Physics.Raycast(lastLaserPosition, laserDirection, out hit, laserDistance, layer_mask) && hit.collider.gameObject.GetComponent<Renderer>().material.GetColor("_EmissionColor") == ColorManager.GetColorValue(ColorManager.ColorNames.RED))
-            {
+            {                
                 /*Debug.Log("Bounce");*/
                 laserReflected++;
                 vertexCounter += 2;
@@ -69,10 +69,14 @@ public class BouncingLaser : MonoBehaviour
                 mLineRenderer.endWidth = sizeLaser;
                 lastLaserPosition = hit.point;
                 Vector3 prevDirection = laserDirection;
-                laserDirection = Vector3.Reflect(laserDirection, hit.normal);
+                laserDirection = Vector3.Reflect(laserDirection, hit.normal);                
             }
             else
             {
+                if(Physics.Raycast(lastLaserPosition, laserDirection, out hit, laserDistance, layer_mask) && hit.collider.gameObject.tag == "OpenGateBlock")
+                {
+                    hit.collider.gameObject.GetComponent<OpenGateBlock>().laserTouched = true;
+                }
                 /*Debug.Log("No Bounce");*/
                 laserReflected++;
                 vertexCounter++;

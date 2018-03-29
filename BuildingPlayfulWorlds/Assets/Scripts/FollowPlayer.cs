@@ -29,12 +29,15 @@ public class FollowPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        var distance = Vector3.Distance(myTransform.position, target.position);
-        if (distance < range)
+        if (GetComponent<Renderer>().material.GetColor("_EmissionColor") != ColorManager.GetColorValue(ColorManager.ColorNames.RED))
         {
-            Vector3 vectorTarget = new Vector3(target.position.x, myTransform.position.y, target.position.z);
-            myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(vectorTarget - myTransform.position), rotationSpeed * Time.deltaTime);
-            myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+            var distance = Vector3.Distance(myTransform.position, target.position);
+            if (distance < range)
+            {
+                Vector3 vectorTarget = new Vector3(target.position.x, myTransform.position.y, target.position.z);
+                myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(vectorTarget - myTransform.position), rotationSpeed * Time.deltaTime);
+                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+            }
         }
     }
 }

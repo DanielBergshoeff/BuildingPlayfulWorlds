@@ -18,6 +18,7 @@ public class RaycastShootComplete : MonoBehaviour
     public GameObject prefab;
 
     private Color[] colors;
+    private GameObject itemHeld;
     public GameObject colorGun;
 
 
@@ -47,6 +48,11 @@ public class RaycastShootComplete : MonoBehaviour
 
     void Update()
     {
+        if(itemHeld != null)
+        {
+            itemHeld.transform.position = Vector3.Lerp(itemHeld.transform.position, transform.position + transform.forward * 5, Time.deltaTime * 3);
+        }
+
         // Check if the player has pressed the fire button and if enough time has elapsed since they last fired
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
@@ -80,6 +86,11 @@ public class RaycastShootComplete : MonoBehaviour
                     Debug.Log(hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor"));*/
                     if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor"))
                     {
+                        //IF THE COLOR WAS RED, RE-ENABLE THE FOLLOW PLAYER SCRIPT AND TURN ITS SOUND BACK ON
+                        if (hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (ColorManager.GetColorValue(ColorManager.ColorNames.RED)))
+                        {
+                            hit.collider.GetComponent<AudioSource>().enabled = true;
+                        }
 
                         for (int i = 0; i < colors.Length; i++)
                         {
@@ -97,6 +108,11 @@ public class RaycastShootComplete : MonoBehaviour
                                 break;
                             }
                         }
+
+                        //IF THE COLOR BECOMES RED, DISABLE THE FOLLOW PLAYER SCRIPT AND TURN ITS SOUND OFF
+                        if(hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (ColorManager.GetColorValue(ColorManager.ColorNames.RED))) {
+                            hit.collider.GetComponent<AudioSource>().enabled = false;
+                        }
                     }
 
 
@@ -109,6 +125,11 @@ public class RaycastShootComplete : MonoBehaviour
                 {
                     if (colorGun.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == hit.collider.GetComponentInParent<Renderer>().materials[0].GetColor("_EmissionColor"))
                     {
+                        //IF THE COLOR WAS RED, TURN ITS SOUND BACK ON
+                        if (hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (ColorManager.GetColorValue(ColorManager.ColorNames.RED)))
+                        {
+                            hit.collider.GetComponent<AudioSource>().enabled = true;
+                        }
 
                         for (int i = 0; i < colors.Length; i++)
                         {
@@ -125,6 +146,12 @@ public class RaycastShootComplete : MonoBehaviour
 
                                 break;
                             }
+                        }
+
+                        //IF THE COLOR BECOMES RED, TURN ITS SOUND OFF
+                        if (hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (ColorManager.GetColorValue(ColorManager.ColorNames.RED)))
+                        {
+                            hit.collider.GetComponent<AudioSource>().enabled = false;
                         }
                     }
                 }
@@ -167,6 +194,40 @@ public class RaycastShootComplete : MonoBehaviour
 
                     break;
                 }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            // Create a vector at the center of our camera's viewport
+            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+
+            // Declare a raycast hit to store information about what our raycast has hit
+            RaycastHit hit;
+
+            //Find the correct layer to raycast in
+            int layer_mask = LayerMask.GetMask("BounceLaser");
+
+            if (itemHeld == null)
+            {   
+
+                if(Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange, layer_mask))
+                {                    
+                    if (hit.collider.GetComponent<Renderer>().materials[0].GetColor("_EmissionColor") == (ColorManager.GetColorValue(ColorManager.ColorNames.RED)))
+                    {
+                        hit.collider.GetComponent<Rigidbody>().useGravity = false;
+                        hit.collider.GetComponent<Rigidbody>().freezeRotation = true;
+                        hit.collider.transform.parent = transform;
+                        itemHeld = hit.collider.gameObject;
+                    }                    
+                }
+            }
+            else
+            {
+                itemHeld.GetComponent<Rigidbody>().useGravity = true;
+                itemHeld.GetComponent<Rigidbody>().freezeRotation = false;
+                itemHeld.transform.parent = null;
+                itemHeld = null;
             }
         }
     }

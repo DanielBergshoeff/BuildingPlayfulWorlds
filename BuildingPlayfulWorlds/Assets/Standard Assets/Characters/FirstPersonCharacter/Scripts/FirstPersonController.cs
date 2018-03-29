@@ -76,7 +76,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 */
 
                 // SCENE 2
-                new Vector3(90, 2, -20)
+                new Vector3(3, 1, 2)
             };
 
             Respawn();

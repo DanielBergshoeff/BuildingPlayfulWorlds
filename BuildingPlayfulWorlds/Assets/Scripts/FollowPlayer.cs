@@ -17,8 +17,12 @@ public class FollowPlayer : MonoBehaviour {
     private Transform myTransform;
     private Transform target;
 
+    public Color startColor;
+
     private void Awake()
     {
+        startColor = ColorManager.GetColorValue(ColorManager.ColorNames.PURPLE);
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", startColor);
         myTransform = transform;
     }
 

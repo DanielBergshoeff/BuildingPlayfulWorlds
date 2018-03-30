@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1452845875576102}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18457556, y: -8.5, z: -24.6}
+  m_LocalPosition: {x: 49.581234, y: 1.05, z: 39.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4089138331025402}
@@ -268,7 +268,8 @@ MonoBehaviour:
   moveSpeed: 3
   rotationSpeed: 3
   range: 50
-  range2: 50
   rangeWall: 10
-  transparantMat: {fileID: 0}
-  blueMat: {fileID: 0}
+  transparantMat: {fileID: 2100000, guid: 3be80d537ffcc9549a6f372a3c062cc9, type: 2}
+  blueMat: {fileID: 2100000, guid: bfe609c5f4385c44bbec706a05f0aabf, type: 2}
+  color: 1
+  currentState: 0

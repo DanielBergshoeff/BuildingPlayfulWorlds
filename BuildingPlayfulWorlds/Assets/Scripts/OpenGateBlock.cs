@@ -7,6 +7,7 @@ public class OpenGateBlock : MonoBehaviour {
     public GameObject gate;
     public bool gateOpen;
     public bool laserTouched;
+    public bool upOrSide;
     public float distanceUp;
     public float speedUp;
 
@@ -16,14 +17,20 @@ public class OpenGateBlock : MonoBehaviour {
     void Start ()
     {
         originalPosition = gate.transform.position;
-        target = gate.transform.position + gate.transform.up * distanceUp;
+        if (!upOrSide)
+        {
+            target = gate.transform.position + gate.transform.up * distanceUp;
+        }
+        else
+        {
+            target = gate.transform.position + gate.transform.right * distanceUp;
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if(laserTouched)
         {
-            Debug.Log("THE GATE HAS BEEN OPENED!");
             gate.transform.position = Vector3.Lerp(gate.transform.position, target, Time.deltaTime * speedUp);
             if(gate.transform.position == target)
             {
@@ -33,7 +40,6 @@ public class OpenGateBlock : MonoBehaviour {
         }
         else if(!laserTouched)
         {
-            Debug.Log("THE GATE IS CLOSING");
             gate.transform.position = Vector3.Lerp(gate.transform.position, originalPosition, Time.deltaTime * speedUp);
             if(gate.transform.position == originalPosition)
             {

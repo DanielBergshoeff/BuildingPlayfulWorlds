@@ -45,10 +45,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
 
         public int startLevel = 0;
-
+        public GameObject myGun;
+        
         private Vector3[] spawnGrounds;
         private int currentLevel = 1;
         private bool nextLevel = false;
+        private bool respawn = false;
         public Color emissionColorPurple;
 
         // Use this for initialization
@@ -76,8 +78,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 */
 
                 // SCENE 2
-                new Vector3(50, 1, 0)
+                //new Vector3(50, 1, 0)
                 //new Vector3(0, 2, 0)
+                new Vector3(50, 1, 185)
             };
 
             Respawn();
@@ -125,6 +128,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 Respawn();
                 nextLevel = false;
+            }
+            if(respawn)
+            {
+                Respawn();
+                respawn = false;
             }
 
             if(GetComponent<Transform>().position.y < -50)
@@ -302,6 +310,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            Debug.Log(hit.collider.gameObject.tag);
+            if(hit.gameObject.tag == "Respawn")
+            {
+                respawn = true;
+            }
+            if(hit.gameObject.name == "pickupGun")
+            {
+                hit.gameObject.SetActive(false);
+                myGun.SetActive(true);
+            }
+            if(hit.gameObject.tag == "Enemy")
+            {
+                respawn = true;
+            }
             if (hit.gameObject.tag == "Bounce" && hit.gameObject.GetComponentInParent<Renderer>().materials[0].GetColor("_EmissionColor") == emissionColorPurple)
             {
                 m_JumpMultiplier = (float)((GetComponent<CharacterController>().velocity.y / 8) * -1);

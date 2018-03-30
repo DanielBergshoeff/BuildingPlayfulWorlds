@@ -38,7 +38,7 @@ public class SpecialWallScript : MonoBehaviour {
     {
         foreach (GameObject e in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if (Vector3.Distance(transform.position, e.transform.position) < rangeWallCheck && e.GetComponent<Renderer>().material.GetColor("_EmissionColor") == startMat.GetColor("_EmissionColor"))
+            if (Vector3.Distance(transform.position, e.transform.position) < rangeWallCheck && e.GetComponent<Renderer>().material.GetColor("_EmissionColor") == ColorManager.GetColorValue(ColorManager.ColorNames.BLUE))
             {
                 return true;
             }

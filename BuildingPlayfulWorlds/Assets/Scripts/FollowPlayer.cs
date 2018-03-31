@@ -83,7 +83,12 @@ public class FollowPlayer : MonoBehaviour {
 
                 break;
             case State.Move:
-                
+                if (GetComponent<Renderer>().material.GetColor("_EmissionColor") == ColorManager.GetColorValue(ColorManager.ColorNames.RED))
+                {
+                    currentState = State.Silence;
+                    break;
+                }
+
                 Vector3 vectorTarget = new Vector3(target.position.x, myTransform.position.y, target.position.z);
                 myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(vectorTarget - myTransform.position), rotationSpeed * Time.deltaTime);
                 RaycastHit hit;
@@ -104,7 +109,11 @@ public class FollowPlayer : MonoBehaviour {
             case State.Descend:
                 break;
             case State.Silence:
-
+                if (GetComponent<Renderer>().material.GetColor("_EmissionColor") != ColorManager.GetColorValue(ColorManager.ColorNames.RED))
+                {
+                    currentState = State.Idle;
+                    break;
+                }
 
 
 

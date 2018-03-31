@@ -78,9 +78,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 */
 
                 // SCENE 2
-                //new Vector3(50, 1, 0)
+                new Vector3(50, 1, 0)
                 //new Vector3(0, 2, 0)
-                new Vector3(50, 1, 185)
+                //new Vector3(50, 1, 185)
             };
 
             Respawn();
@@ -320,7 +320,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 hit.gameObject.SetActive(false);
                 myGun.SetActive(true);
             }
-            if(hit.gameObject.tag == "Enemy")
+            if(hit.gameObject.tag == "Enemy" && hit.gameObject.GetComponent<Renderer>().material.GetColor("_EmissionColor") != new Color32(255, 84, 84, 255))
             {
                 respawn = true;
             }
@@ -339,9 +339,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if (currentLevel != spawnGrounds.Length - 1)
                 {
-
                     currentLevel++;
                     nextLevel = true;
+                }
+                else
+                {
+                    respawn = true;
                 }
             }
             Rigidbody body = hit.collider.attachedRigidbody;
